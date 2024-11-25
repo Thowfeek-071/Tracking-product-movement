@@ -1,0 +1,57 @@
+#include <stdio.h>
+    printf("--- End of Product List ---\n\n");
+}
+
+// Function to free memory allocated for the linked list
+void freeList(Product *head) {
+    Product *current = head;
+    Product *next;
+    while (current) {
+        next = current->next;
+        free(current);
+        current = next;
+    }
+}
+
+// Main function to demonstrate usage with switch options
+int main() {
+    Product *head = NULL;
+    int choice;
+
+    do {
+        printf("\nMenu:\n");
+        printf("1. Add a product\n");
+        printf("2. Update live location\n");
+        printf("3. Update final location\n");
+        printf("4. Display product details\n");
+        printf("5. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1:
+                addProduct(&head);
+                break;
+            case 2:
+                updateLiveLocation(head);
+                break;
+            case 3:
+                updateFinalLocation(head);
+                break;
+            case 4:
+                displayProducts(head);
+                break;
+            case 5:
+                printf("Exiting...\n");
+                break;
+            default:
+                printf("Invalid choice. Please enter a number between 1 and 5.\n");
+        }
+    } while (choice != 5);
+
+    // Free allocated memory
+    freeList(head);
+    head = NULL;
+
+    return 0;
+}
